@@ -1,0 +1,63 @@
+services:
+  # Backend API - FastAPI
+  app:
+    build: ./backend
+    container_name: podcast-app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://podcast_user:podcast_pass@postgres:5432/podcast_db
+      - OLLAMA_URL=http://ollama:11434
+    volumes:
+      - ./backend:/app
+      - ./data/podcasts:/data/podcasts
+    depends_on:
+      - postgres
+      - ollama
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - podcast-network
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: podcast-postgres
+    environment:
+      - POSTGRES_USER=podcast_user
+      - POSTGRES_PASSWORD=podcast_pass
+      - POSTGRES_DB=podcast_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - podcast-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U podcast_user -d podcast_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Ollama with Gemma
+  ollama:
+    image: ollama/ollama:latest
+    container_name: podcast-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    networks:
+      - podcast-network
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data:
+  ollama_models:
+
+networks:
+  podcast-network:
+    driver: bridge
