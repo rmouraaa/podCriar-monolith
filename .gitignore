@@ -1,0 +1,19 @@
+# Arquivos Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ambiente virtual
+venv/
+.env/
+
+# Docker
+*.log
+*.pid
+*.sock
+data/
+__data__/
+
+# VSCode e afins
+.vscode/
+.idea/
