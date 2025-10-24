@@ -1,0 +1,60 @@
+#Web Framework
+
+# O coração do nosso projeto — é com ele que vamos construir nossa API REST.
+# O FastAPI é lindo porque gera automaticamente aquela interface com os endpoints organizados
+# e deixa testar tudo direto no navegador.
+# Ele cria duas URLs mágicas:
+#   ➤ http://localhost:8000/docs   → Interface Swagger (telinha com botões interativos)
+#   ➤ http://localhost:8000/redoc  → Documentação formal (versão técnica e limpa)
+fastapi==0.104.1
+
+#Servidor ASGI 
+
+# Servidor que roda a aplicação FastAPI.
+# ASGI = Asynchronous Server Gateway Interface → servidor assíncrono.
+# É a ponte entre o código Python e o servidor web — e aguenta várias requisições ao mesmo tempo.
+# Usar o [standard] garante extras úteis como reload, logs e watchfiles.
+# É ele quem entende o comando 'uvicorn main:app' → arquivo main, variável app.
+uvicorn[standard]==0.24.0
+
+
+#DataBase
+
+
+# ORM - Object-Relational Mapping.
+# Esse carinha é o tradutor entre Python e SQL.
+# Você escreve em Python e ele gera as queries SQL automaticamente.
+sqlalchemy==2.0.23
+
+#Ponte 'driver' entre o meu python e o postgres
+# O "binary" é uma versão pré-compilada (instala fácil e roda em quase qualquer SO).
+# O SQLAlchemy precisa dele pra conseguir conversar com o Postgres.
+psycopg2-binary==2.9.9
+
+#Validação e schemas 
+
+# Valida os dados automaticamente — garante que o que chega na API tem o tipo certo.
+# O FastAPI usa Pydantic nos Schemas (Request/Response Models) pra validar tudo.
+# Já o pydantic-settings ajuda a ler configurações e variáveis de ambiente com tipagem.
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+#HTTP Client
+
+# Biblioteca pra fazer requisições HTTP (como se fosse um requests, mas assíncrono).
+# Aceita async/await.
+# ele não controla nada, aprendi isso kk, ele só faz as requisições de forma assíncrona.
+#Ele conversa com o Ollama (envia prompt, recebe roteiro) de forma assíncrona
+httpx==0.25.2
+
+#Configuração e migração 
+
+# Lê as variáveis de ambiente do arquivo .env (ótimo pra senhas, URLs, tokens).
+python-dotenv==1.0.0
+
+# Cria versões da estrutura do banco (migrations).
+# Permite versionar alterações de tabelas ao longo do tempo.
+alembic==1.12.1
+
+
+
