@@ -5,7 +5,7 @@ echo "Baixando o modelo Gemma3, nosso queridinho, sim, vai demorar, são 1.87Gb,
 echo ""
 
 #Biaxa a imagem já pronta do DockerHub do Gemma
-docker exec podcast-ollama pull gemma:2b 
+docker exec podcast-ollama ollama pull gemma:2b
 
 echo ""
 echo "Gemma está entre a gente primata"
